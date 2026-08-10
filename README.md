@@ -155,7 +155,9 @@
        │
        ▼ (6. State Notification Push)
 [사장님 모바일 대시보드 앱 (APP.md 타임라인)] ──► [조리 중 실시간 상태 파악]
---
+```
+
+---
 
 ## 3단계: 사용 환경 구체화 및 물리적 제약 파악 (Context & Constraints)
 
