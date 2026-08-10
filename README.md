@@ -131,7 +131,7 @@
 | **AI 기술 개입** | *(센서 가동 대기)* | 💡 **[Vision + TTS 능동 개입]**<br>MediaPipe 온디바이스 안면 인식이 손님을 0.5초 내 감지, 사장님 복제 음성(F5-TTS)으로 선제적 환영 인사 송출. | 💡 **[STT + 임베딩 분류 개입]**<br>손님의 질문을 Faster-Whisper가 인식 후 로컬 유사도 알고리즘이 대기 양해 멘트 매핑 및 아바타 립싱크(Wav2Lip) 출력. | 💡 **[Flutter 모바일 무전]**<br>2단계 순간부터 사장님이 착용한 에어팟(Flutter 앱)으로 백그라운드 실시간 TTS 알림 무전 송출 완료. |
 
 --
-### 4-2. 고객 여정 데이터 플로우 (Customer Journey Data Flow)
+### 고객 여정 데이터 플로우 (Customer Journey Data Flow)
 
 ```text
 [고객 진입 & 음성 입력] 
