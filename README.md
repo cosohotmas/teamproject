@@ -130,7 +130,32 @@
 | **Pain Point** | **[물리적 차단]** 조리실 내 소음으로 인해 외부 홀 상황과 차단됨. | **[첫 응대 실패]** 방문 순간 그 어떤 환영 피드백도 받지 못해 불안함 발생. | **[소통의 시차]** 사장님이 씻고 나가는 **2분의 공백**을 잡아둘 장치 부재. | **[매출 방어 완료]** 기존 벨 방식과 달리, 시차 공백을 메워 단골 고객 이탈 방지. |
 | **AI 기술 개입** | *(센서 가동 대기)* | 💡 **[Vision + TTS 능동 개입]**<br>MediaPipe 온디바이스 안면 인식이 손님을 0.5초 내 감지, 사장님 복제 음성(F5-TTS)으로 선제적 환영 인사 송출. | 💡 **[STT + 임베딩 분류 개입]**<br>손님의 질문을 Faster-Whisper가 인식 후 로컬 유사도 알고리즘이 대기 양해 멘트 매핑 및 아바타 립싱크(Wav2Lip) 출력. | 💡 **[Flutter 모바일 무전]**<br>2단계 순간부터 사장님이 착용한 에어팟(Flutter 앱)으로 백그라운드 실시간 TTS 알림 무전 송출 완료. |
 
----
+--
+### 4-2. 고객 여정 데이터 플로우 (Customer Journey Data Flow)
+
+```text
+[고객 진입 & 음성 입력] 
+       │ 
+       ▼ (1. Audio Streaming IPC / PCM Raw Data 16kHz)
+[입구 리셉션 기기 (Flutter I/O Node)]
+       │ 
+       ▼ (2. WebSocket Upstream: chunk_size=0.5s)
+[AI 백엔드 (FastAPI Gateway)]
+       │
+       ├─► [Faster-Whisper (STT 추론)] 
+       │         │ (3. Text Tokenized Stream)
+       │         ▼
+       ├─► [로컬 KR-SBERT (의도 추출 & 코사인 유사도 매칭)]
+       │         │ (4. Optimal FAQ Response Text)
+       │         ▼
+       └─► [F5-TTS Engine (음성 합성 추론)]
+                 │ 
+                 ▼ (5. Audio Chunk Stream: Int16 Linear PCM)
+[입구 리셉션 기기 (Flutter I/O Node)] ──► [고객에게 음성 안내 및 답변]
+       │
+       ▼ (6. State Notification Push)
+[사장님 모바일 대시보드 앱 (APP.md 타임라인)] ──► [조리 중 실시간 상태 파악]
+--
 
 ## 3단계: 사용 환경 구체화 및 물리적 제약 파악 (Context & Constraints)
 
